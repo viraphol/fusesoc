@@ -121,59 +121,12 @@ def fetch(cm, args):
 
 
 def init(cm, args):
-    # Fix Python 2.x.
-    global input
-    try:
-        input = raw_input
-    except NameError:
-        pass
-
-    xdg_config_home = os.environ.get("XDG_CONFIG_HOME") or os.path.join(
-        os.path.expanduser("~"), ".config"
+    logger.info(
+        """fusesoc init has been deprecated
+To install the standard core library for all workspaces, run 'fusesoc library add --global fusesoc-cores https://github.com/fusesoc/fusesoc-cores'. Remove the --global flag to only install for the current workspace
+"""
     )
-    config_file = os.path.join(xdg_config_home, "fusesoc", "fusesoc.conf")
-
-    if os.path.exists(config_file):
-        logger.warning("'{}' already exists. Aborting".format(config_file))
-        exit(1)
-        # TODO. Prepend cores_root to file if it doesn't exist
-        f = open(config_file, "w+")
-    else:
-        logger.info("Writing configuration file to '{}'".format(config_file))
-        if not os.path.exists(os.path.dirname(config_file)):
-            os.makedirs(os.path.dirname(config_file))
-        f = open(config_file, "w+")
-
-    config = Config(file=f)
-
-    _repo_paths = []
-    for repo in REPOS:
-        name = repo[0]
-        uri = repo[1]
-        default_dir = os.path.join(cm._lm.library_root, name)
-        prompt = "Directory to use for {} ({}) [{}] : "
-        if args.y:
-            location = None
-        else:
-            location = input(prompt.format(repo[0], repo[2], default_dir))
-        if not location:
-            location = default_dir
-        if os.path.exists(location):
-            logger.warning(
-                "'{}' already exists. This library will not be added to fusesoc.conf".format(
-                    location
-                )
-            )
-            # TODO: Prompt for overwrite
-        else:
-            logger.info("Initializing {}".format(name))
-            try:
-                library = Library(name, location, "git", uri, True)
-                config.add_library(library)
-            except RuntimeError as e:
-                logger.error("Init failed: " + str(e))
-                exit(1)
-    logger.info("FuseSoC is ready to use!")
+    exit(1)
 
 
 def list_paths(cm, args):

@@ -29,7 +29,7 @@ install:
   - pip install .
   - pre-commit install
 
-  - fusesoc init -y
+  - fusesoc library add --global fusesoc-cores https://github.com/fusesoc/fusesoc-cores
   - fusesoc list-cores
   - fusesoc library update
 

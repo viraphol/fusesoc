@@ -43,21 +43,21 @@ FuseSoC is now installed, but as with all package managers, they are not all tha
 
 ::
 
-    fusesoc list-cores
+    fusesoc core list
 
 This should result in an empty list and a message saying ``ERROR: cores_root is not defined`` if you never had FuseSoC on your system before.
 
-Luckily FuseSoC comes with two standard libraries (It should really only be one, but the transition has taken a bit longer than expected).
+Luckily FuseSoC comes with a standard core library
 
-To download and register the standard libraries with FuseSoC run
+To download and register the standard library with FuseSoC run
 
 ::
 
-    fusesoc init
+    fusesoc library add --global fusesoc-cores https://github.com/fusesoc/fusesoc-cores
 
-Running fusesoc ``list-cores`` again should now result in a much larger list of cores.
+Running ``fusesoc core list`` again should now result in a much larger list of cores.
 
-During fusesoc init, FuseSoC has created a configuration file in ``$XDG_CONFIG_HOME/fusesoc/fusesoc.conf`` (``$XDG_CONFIG_HOME`` is normally set to ``~/.config`` on Linux systems and somewhere else, not sure to be honest, on Windows and MacOS)
+During fusesoc library add, FuseSoC has created a configuration file in ``$XDG_CONFIG_HOME/fusesoc/fusesoc.conf`` (``$XDG_CONFIG_HOME`` is normally set to ``~/.config`` on Linux systems and somewhere else, not sure to be honest, on Windows and MacOS)
 
 The file will have two sections, one for each of the above mentioned libraries and looks like this
 

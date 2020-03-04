@@ -60,19 +60,24 @@ Install latest development version from git:
    cd fusesoc
    sudo pip install -e .
 
-FuseSoC should now be installed. Next step is to download the standard IP core libraries, which contain over 100 Open Source IP cores.
-
-*FuseSoC is currently in a transition phase and will prompt for the old standard library (* orpsoc-cores_ *) in addition to the new one (* fusesoc-cores_ *)*
+FuseSoC should now be installed. Next step is to download the FuseSoC standard IP core library. This is optional but provides a lot of handy cores to be used in your projects. To install it globally for all workspaces
 
 ::
 
-   fusesoc init
+   fusesoc library add --global fusesoc-cores https://github.com/fusesoc/fusesoc-cores
 
-Test your installation by running ``fusesoc list-cores``. This should return the list of cores that FuseSoC has found.
+or to the current workspace
+
+::
+
+   fusesoc library add fusesoc-cores https://github.com/fusesoc/fusesoc-cores
+
+Test your installation by running ``fusesoc core list``. This should return the list of cores that FuseSoC has found.
 
 If you have any of the supported simulators installed, you can try to run a simulation on one of the cores as well.
-For example, ``fusesoc sim --sim=icarus wb_sdram_ctrl`` will run a regression test on the core wb_sdram_ctrl with icarus verilog.
-If you also have Altera Quartus installed, you can try to build an example system - for example, ``fusesoc build de0_nano``.
+For example, ``fusesoc run --target=sim simple_spi`` will run a regression test on the core simple_spi using icarus verilog.
+
+If you also have `Project IceStorm`_ installed, you can try to build an FPGA image for a supported system. The following command will build the servant SoC (a SoC built around SERV_, the world's smallest RISC-V CPU) for the TinyFPGA BX board, ``fusesoc run --target=tinyfpga_bx servant``.
 
 ``fusesoc --help`` will give you more information on commands and switches.
 
@@ -102,3 +107,5 @@ There is also some FuseSoC-related articles and extended release information on 
 .. _orpsoc-cores: https://github.com/openrisc/orpsoc-cores
 .. _fusesoc-cores: https://github.com/fusesoc/fusesoc-cores
 .. _`bug report`: https://github.com/olofk/fusesoc/issues
+.. _`Project IceStorm`: http://www.clifford.at/icestorm
+.. _SERV: https://github.com/olofk/serv

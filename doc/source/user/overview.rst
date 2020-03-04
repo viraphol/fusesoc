@@ -51,16 +51,12 @@ there, it will search next in ``$XDG_CONFIG_HOME/fusesoc`` (i.e.
 ``~/.config/fusesoc`` on Linux and ``%LOCALAPPDATA%\fusesoc`` in
 Windows) and lastly in ``/etc/fusesoc``
 
-By running ``fusesoc init`` after FuseSoC is installed, the standard
+By running ``fusesoc library add --global fusesoc-cores https://github.com/fusesoc/fusesoc-cores`` after FuseSoC is installed, the standard
 libraries will be installed, and a default configuration file will be
 created in ``$XDG_CONFIG_HOME/fusesoc/fusesoc.conf`` with the following
 contents:
 
 ::
-
-   [library.orpsoc-cores]
-   sync-uri = https://github.com/openrisc/orpsoc-cores
-   sync-type = git
 
    [library.fusesoc-cores]
    sync-uri = https://github.com/fusesoc/fusesoc-cores
