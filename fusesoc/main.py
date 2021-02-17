@@ -28,8 +28,10 @@ from fusesoc.coreconverter import convert_core
 from fusesoc.coremanager import CoreManager, DependencyError
 from fusesoc.edalizer import Edalizer
 from fusesoc.librarymanager import Library
-from fusesoc.utils import Launcher, setup_logging, yaml_fread
+from fusesoc.utils import Launcher, setup_logging, yaml_fread 
 from fusesoc.vlnv import Vlnv
+
+
 
 logger = logging.getLogger(__name__)
 

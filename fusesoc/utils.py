@@ -9,6 +9,9 @@ import warnings
 
 import yaml
 
+import zlib
+from base64 import urlsafe_b64encode as b64e, urlsafe_b64decode as b64d
+
 try:
     from yaml import CSafeDumper as YamlDumper
     from yaml import CSafeLoader as YamlLoader
@@ -172,3 +175,15 @@ def merge_dict(d1, d2):
         else:
             d1[key] = value
     return d1
+
+
+#function to obsure access token to avoid saving the token in the clear
+
+
+def obscure_token(data: bytes) -> bytes:
+    return b64e(zlib.compress(data, 9))
+
+def unobscure_token(obscured: bytes) -> bytes:
+    return zlib.decompress(b64d(obscured))
+
+

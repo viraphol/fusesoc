@@ -9,6 +9,7 @@ import tarfile
 import tempfile
 
 from fusesoc.provider.provider import Provider
+from fusesoc.utils import unobscure_token
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +27,8 @@ class Github(Provider):
     def _checkout(self, local_dir):
         user = self.config.get("user")
         repo = self.config.get("repo")
-        token = self.config.get("token")
+        otoken = self.config.get("token")
+        
 
         version = self.config.get("version", "master")
 
@@ -36,11 +38,12 @@ class Github(Provider):
         logger.info("URL: {}".format(url))
 
         # if authentication token is given use it
-        if (token)  :
+        if (otoken)  :
+            token = unobscure_token(str.encode(otoken)).decode("utf-8")
+            logger.info("Token: {}".format(token))
+
             r = urllib.Request(url)
             r.add_header('Authorization', ("token " + token))
-            #r = urllib.Request("https://github.com/viraphol/pair1/archive/v1.1.tar.gz")
-            #r.add_header('Authorization', "token 79a783b2d2c13bedcd458f599abf61670bbd0063")
             try:
                 with urllib.urlopen(r) as resp:
                     fd, filename = tempfile.mkstemp()
